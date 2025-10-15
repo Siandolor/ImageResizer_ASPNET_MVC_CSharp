@@ -1,0 +1,124 @@
+@model ImageResizer.Models.ImageResultViewModel
+
+@{
+    // ==========================================================
+    //  IMAGE RESIZER VIEW
+    //  Displays the main upload form, resize parameters,
+    //  and resulting images with performance comparison.
+    // ==========================================================
+    ViewData["Title"] = "Image Resizer";
+    var cacheBust = DateTime.Now.Ticks; // Prevents cached image display
+}
+
+<div class="container py-5">
+
+    <!-- ======================================================
+         HEADER
+         ====================================================== -->
+    <h2 class="text-center mb-4 fw-bold text-primary">Image Resizer</h2>
+
+    <!-- ======================================================
+         UPLOAD & PARAMETER FORM
+         ====================================================== -->
+    <form asp-action="Resize" method="post" enctype="multipart/form-data"
+          class="row g-3 justify-content-center bg-light p-4 rounded-4 shadow-sm">
+
+        <!-- Image input -->
+        <div class="col-md-3">
+            <label class="form-label fw-semibold">Image file:</label>
+            <input type="file" class="form-control" name="imageFile" accept=".png,.jpg,.jpeg" required />
+        </div>
+
+        <!-- Target size -->
+        <div class="col-md-3">
+            <label class="form-label fw-semibold">Target size (px):</label>
+            <input type="number" class="form-control" name="targetSize" value="500" min="50" max="10000" />
+        </div>
+
+        <!-- Mask percentage -->
+        <div class="col-md-3">
+            <label class="form-label fw-semibold">Mask-Out % (0.0–0.5):</label>
+            <input type="number" class="form-control" name="maskOutPercent" step="0.05" value="0.0" min="0" max="0.5" />
+        </div>
+
+        <!-- Submit -->
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">
+                Start
+            </button>
+        </div>
+    </form>
+
+    <!-- ======================================================
+         RESULT DISPLAY
+         ====================================================== -->
+    @if (Model?.SourceImage != null)
+    {
+        <div class="mt-5 p-4 bg-white rounded-4 shadow-sm">
+            <h3 class="text-center text-success mb-3 fw-bold">Results</h3>
+
+            <!-- Performance metrics -->
+            <div class="text-center mb-3">
+                <p class="mb-1">Pixel Method: <strong>@Model.TimePixel ms</strong></p>
+                <p class="mb-1">Bilinear Method: <strong>@Model.TimeBilinear ms</strong></p>
+                <p class="fw-bold">@Model.Faster</p>
+            </div>
+
+            <!-- Image comparison grid -->
+            <div class="row justify-content-center text-center g-4">
+
+                <!-- Original -->
+                <div class="col-md-3">
+                    <h5 class="text-primary">Original</h5>
+                    <div class="ratio ratio-4x3 border rounded shadow-sm bg-light d-flex align-items-center justify-content-center">
+                        <img src="~/resized/@Model.SourceImage?t=@cacheBust"
+                             class="img-fluid rounded"
+                             style="object-fit: contain; width:100%; height:100%;" />
+                    </div>
+                    <div class="mt-2 text-muted small">
+                        <div>@Model.SourceImage</div>
+                        <div>@Model.SourceWidth × @Model.SourceHeight px</div>
+                    </div>
+                </div>
+
+                <!-- Pixel method -->
+                <div class="col-md-3">
+                    <h5 class="text-primary">Pixel</h5>
+                    <div class="ratio ratio-4x3 border rounded shadow-sm bg-light d-flex align-items-center justify-content-center">
+                        <img src="~/resized/@Model.PixelImage?t=@cacheBust"
+                             class="img-fluid rounded"
+                             style="object-fit: contain; width:100%; height:100%;" />
+                    </div>
+                    <div class="mt-2 text-muted small">
+                        <div>@Model.PixelImage</div>
+                        <div>@Model.PixelWidth × @Model.PixelHeight px</div>
+                    </div>
+                </div>
+
+                <!-- Bilinear method -->
+                <div class="col-md-3">
+                    <h5 class="text-primary">Bilinear</h5>
+                    <div class="ratio ratio-4x3 border rounded shadow-sm bg-light d-flex align-items-center justify-content-center">
+                        <img src="~/resized/@Model.BilinearImage?t=@cacheBust"
+                             class="img-fluid rounded"
+                             style="object-fit: contain; width:100%; height:100%;" />
+                    </div>
+                    <div class="mt-2 text-muted small">
+                        <div>@Model.BilinearImage</div>
+                        <div>@Model.BilinearWidth × @Model.BilinearHeight px</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- ======================================================
+         ERROR DISPLAY
+         ====================================================== -->
+    @if (!string.IsNullOrWhiteSpace(Model?.Error))
+    {
+        <div class="alert alert-danger text-center mt-4">
+            @Model.Error
+        </div>
+    }
+</div>

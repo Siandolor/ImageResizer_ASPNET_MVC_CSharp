@@ -1,0 +1,55 @@
+/* ==========================================================
+   BASE LAYOUT STYLES
+   Default global styling for ImageResizer web UI
+   ========================================================== */
+
+/* Root font scaling */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ==========================================================
+   FOCUS STYLING
+   Adds a soft blue glow around focused buttons and inputs
+   ========================================================== */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* ==========================================================
+   PAGE STRUCTURE
+   Ensure body takes full height with proper footer offset
+   ========================================================== */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px; /* Leaves space for footer */
+}
+
+/* ==========================================================
+   FORM PLACEHOLDER BEHAVIOR
+   Aligns placeholder text dynamically in floating form fields
+   ========================================================== */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
