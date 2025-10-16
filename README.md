@@ -103,10 +103,20 @@ https://localhost:5001
 
 ---
 
-## License
+## Author
+**Daniel Fitz, MBA, MSc, BSc**  
+Vienna, Austria  
+Developer & Security Technologist — *Post-Quantum Cryptography, Blockchain/Digital Ledger & Simulation*  
+C/C++ · C# · Java · Python · Visual Basic · ABAP · JavaScript/TypeScript
 
-Licensed under the **MIT License**  
-(c) 2025 Daniel Fitz
+International Accounting · Macroeconomics & International Relations · Physiotherapy · Computer Sciences  
+Former Officer of the German Federal Armed Forces
+
+---
+
+## License
+**MIT License** — free for educational and research use.  
+Attribution required for redistribution or commercial adaptation.
 
 ---
 
