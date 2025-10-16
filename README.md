@@ -78,7 +78,7 @@ ImageResizer/
 ### Installation
 
 ```bash
-  git clone https://github.com/Siandolor/ImageResizer.git
+  git clone https://github.com/Siandolor/ImageResizer_ASPNET_MVC_CSharp.git
   cd ImageResizer
   dotnet restore
   dotnet run
